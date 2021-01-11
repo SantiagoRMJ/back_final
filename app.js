@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const teacherRouter = require('./components/teacher/router');
 //const sheetRouter = require('./components/sheet/router');
+const studentRouter = require('./components/student/router')
 
 const MongoURI = process.env.MongoURI || 'mongodb://localhost:27017/neoSchool'
 
@@ -17,7 +18,8 @@ app.get('/', (req, res) => {
     res.send('proyecto final backend');
 });
 app.use('/teacher', teacherRouter);
-//app.use('/trabajos', sheetRouter);
+//app.use('/sheets', sheetRouter);
+app.use('/student', studentRouter);
 
 
 mongoose.connect(MongoURI,{
