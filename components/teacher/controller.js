@@ -1,4 +1,4 @@
-const User = require('./model');
+const Teacher = require('./model');
 const moment = require('moment');
 const bcrypt = require('bcryptjs');
 const jwt = require('jwt-simple');
@@ -20,14 +20,16 @@ createToken = (user) =>{
 exports.registro = async (req, res) => {
     req.body.pass = bcrypt.hashSync(req.body.pass, 3);    
     try {
-        const nuevoUsuario = await User.create({
+        const newTeacher = await Teacher.create({
             name: req.body.name,
             pass: req.body.pass,
             email: req.body.email,
-            rol: req.body.rol
+            classes: req.body.classes,
+            grade: req.body.grade,
+            subject: req.body.subject
         });
        
-        res.status(200).json({message: 'Usuario creado correctamente', nuevoUsuario:nuevoUsuario});
+        res.status(200).json({message: 'Usuario creado correctamente', nuevoUsuario:newTeacher});
     } catch (error) {
         res.status(500).send({message: 'El usuario no ha podido crearse correctamente'});
     }
@@ -36,7 +38,7 @@ exports.registro = async (req, res) => {
 exports.login = async (req, res)=>{
     try{
     const name = req.body.name;
-    let data = await User.findOne({email: req.body.email});
+    let data = await Teacher.findOne({email: req.body.email});
     const pass =  bcrypt.compareSync(req.body.pass, data.pass);
     if(!name || pass === null) return res.json({error: 'faltan datos'});
     if(pass === false) return res.json({error: 'ningún usuario coincide con tu usuario y contraseña'});
