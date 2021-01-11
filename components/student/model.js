@@ -16,7 +16,6 @@ const StudentSchema = new mongoose.Schema({
     },
     class:{
         type: String,
-        unique: true
     },
     teachers: {
          type: String, 

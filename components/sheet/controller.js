@@ -10,7 +10,7 @@ exports.createSheet = async (req,res) => {
             questions: req.body.questions,
             teacher: req.body.teacher
         })
-        res.status(200).json({message: 'Ficha creada correctamente', nuevaFicha:newSheet});
+        res.status(200).json({message: 'Ficha creada correctamente', newSheet:newSheet});
     }catch (error) {
         res.status(500).send({message: 'La ficha no ha podido crearse correctamente.'});
     }
