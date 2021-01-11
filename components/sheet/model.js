@@ -4,68 +4,33 @@ const SheetSchema = new mongoose.Schema({
 
     ////////// FILTER (Teacher) ///////////
 
-    subject:{
-        type: String,
-    },
-    grade:{
-        type: String
-    },
-    area:{
-        type: String
-    },
-    status:{
-        type: Boolean
+    subject: {type: String},
+    grade: {type: String},
+    area: {type: String},
+    status: {
+        type: Boolean,
+        default: false
     },
 
     ///////// CREATE (Teacher) ////////////
 
-    title:{
-        type: String
-    },
-    firstQuestion:{
-        type: String
-    },
-    secondQuestion:{
-        type: String
-    },
-    thirdQuestion:{
-        type: String
-    },
-    fourthQuestion:{
-        type: String
-    },
-    fifthQuestion:{
-        type: String
-    },
+    title: {type: String},
+    questions: [{ type: String }],
 
     /////////// RESOLVE (Student) ///////////
 
-    firstAnswer:{
-        type: String
-    },
-    secondtAnswer:{
-        type: String
-    },
-    thirdAnswer:{
-        type: String
-    },
-    fourthAnswer:{
-        type: String
-    },
-    fifthAnswer:{
-        type: String
-    },
+    answers:[{ type: String }],
 
     /////////// RELATIONS ////////////
 
-    students:{
+    student:{
         type: String,
         ref: 'Students'
     },
-    teachers:{
+    teacher:{
         type: String,
         ref: 'Teachers'
     }
 });
 
-module.exports = mongoose.model('Sheet', SheetSchema)
+module.exports = mongoose.model('Sheet', SheetSchema);

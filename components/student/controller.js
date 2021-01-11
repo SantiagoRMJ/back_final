@@ -2,7 +2,7 @@ const Student = require('./model');
 const bcrypt = require('bcryptjs');
 const createToken = require('../auth/auth');
 
-exports.registro = async (req, res) => {
+exports.register = async (req, res) => {
     req.body.pass = bcrypt.hashSync(req.body.pass, 3);    
     try {
         const newStudent = await Student.create({
