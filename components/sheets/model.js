@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const SheetSchema = new mongoose.Schema({
-    ////////// FILTER /////////////
+    
+    ////////// FILTER (Teacher) ///////////
 
     subject:{
         type: String,
@@ -13,7 +14,7 @@ const SheetSchema = new mongoose.Schema({
         type: String
     },
 
-    ///////// CREATE ////////////
+    ///////// CREATE (Teacher) ////////////
 
     title:{
         type: String
@@ -34,7 +35,7 @@ const SheetSchema = new mongoose.Schema({
         type: String
     },
 
-    /////////// RESOLVE ///////////
+    /////////// RESOLVE (Student) ///////////
 
     firstAnswer:{
         type: String
