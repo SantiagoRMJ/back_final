@@ -13,6 +13,9 @@ const SheetSchema = new mongoose.Schema({
     area:{
         type: String
     },
+    status:{
+        type: Boolean
+    },
 
     ///////// CREATE (Teacher) ////////////
 
