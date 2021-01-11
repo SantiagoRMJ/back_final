@@ -12,7 +12,7 @@ exports.register = async (req, res) => {
             class: req.body.class
         });
        
-        res.status(200).json({message: 'Usuario creado correctamente', nuevoUsuario:newStudent});
+        res.status(200).json({message: 'Usuario creado correctamente', newStudent:newStudent});
     } catch (error) {
         res.status(500).send({message: 'El usuario no ha podido crearse correctamente'});
     }
