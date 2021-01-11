@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const SheetSchema = new mongoose.Schema({
-    
+
     ////////// FILTER (Teacher) ///////////
 
     subject:{
@@ -52,6 +52,17 @@ const SheetSchema = new mongoose.Schema({
     fifthAnswer:{
         type: String
     },
+
+    /////////// RELATIONS ////////////
+
+    students:{
+        type: String,
+        ref: 'Students'
+    },
+    teachers:{
+        type: String,
+        ref: 'Teachers'
+    }
 });
 
 module.exports = mongoose.model('Sheet', SheetSchema)

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const teacherController = require('./controller');
 
-router.post('/', teacherController.registro);
-router.post('/login', teacherController.login);
+router.post('/teacher', teacherController.registro);
+router.post('/teacher/login', teacherController.login);
 
 module.exports = router;

@@ -19,7 +19,7 @@ const TeacherSchema = new mongoose.Schema({
     },
     students: {
          type: String, 
-         ref: 'Alumnos' 
+         ref: 'Students' 
     },
     sheets:{
         type: String,
