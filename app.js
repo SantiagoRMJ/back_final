@@ -3,7 +3,7 @@ const mongoose =require('mongoose');
 const cors = require('cors')
 
 const teacherRouter = require('./components/teacher/router');
-//const sheetsRouter = require('./components/sheets/router');
+//const sheetRouter = require('./components/sheet/router');
 
 const MongoURI = process.env.MongoURI || 'mongodb://localhost:27017/neoSchool'
 
@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => {
     res.send('proyecto final backend');
 });
-app.use('/profesor', teacherRouter);
+app.use('/teacher', teacherRouter);
 //app.use('/trabajos', sheetRouter);
 
 
