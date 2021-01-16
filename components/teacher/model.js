@@ -16,14 +16,14 @@ const TeacherSchema = new mongoose.Schema({
     },
     classes: [{type: String}],
 
-    students: {
+    students: [{
          type: String, 
          ref: 'Students' 
-    },
-    sheets:{
+    }],
+    sheets:[{
         type: String,
         ref: 'Sheets'
-    },
+    }],
     grade: {type: String},
 
     subject: [{type: String}]

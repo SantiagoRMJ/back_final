@@ -23,7 +23,7 @@ exports.login = async (req, res, next)=>{
     let data = await Teacher.findOne({email: req.body.email}) || await Student.findOne({email: req.body.email});
     const pass =  bcrypt.compareSync(req.body.pass, data.pass);
     if(pass === false) return res.json({error: 'ningún usuario coincide con usuario y contraseña'});
-    else res.status(200).json({sucess: "Usuario logeado correctamente", token: createToken(data)})
+    else res.status(200).json({success: "Usuario logeado correctamente", token: createToken(data)})
     return data;
     }catch(error){
         console.error(error);

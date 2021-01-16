@@ -14,17 +14,7 @@ const StudentSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    class:{
-        type: String,
-    },
-    teachers: {
-         type: String, 
-         ref: 'Teachers' 
-    },
-    sheets:{
-        type: String,
-        ref: 'Sheets'
-    },
+    class: { type: String}
     
 })
 

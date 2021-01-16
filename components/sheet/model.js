@@ -15,6 +15,7 @@ const SheetSchema = new mongoose.Schema({
     ///////// CREATE (Teacher) ////////////
 
     title: {type: String},
+    
     questions: [{ type: String }],
 
     /////////// RESOLVE (Student) ///////////

@@ -17,9 +17,9 @@ const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => {
     res.send('proyecto final backend');
 });
-app.use('/teacher', teacherRouter);
-app.use('/sheets', sheetRouter);
-app.use('/student', studentRouter);
+app.use('/', teacherRouter);
+app.use('/', sheetRouter);
+app.use('/', studentRouter);
 
 
 mongoose.connect(MongoURI,{

@@ -14,7 +14,7 @@ exports.register = async (req, res) => {
             subject: req.body.subject
         });
        
-        res.status(200).json({message: 'Usuario creado correctamente', newTeacher:newTeacher});
+        res.status(200).json({message: 'Usuario creado correctamente', newTeacher: newTeacher});
     } catch (error) {
         res.status(500).send({message: 'El usuario no ha podido crearse correctamente'});
     }
