@@ -1,4 +1,5 @@
 const Sheet = require('./model');
+const Teacher = require('../teacher/model')
 
 exports.createSheet = async (req,res) => {
     try{
@@ -10,7 +11,7 @@ exports.createSheet = async (req,res) => {
             questions: req.body.questions,
             teacher: req.body.teacher
         })
-        res.status(200).json({message: 'Ficha creada correctamente', newSheet:newSheet});
+        res.status(200).json({message: 'Ficha creada correctamente', newSheet: newSheet});
     }catch (error) {
         res.status(500).send({message: 'La ficha no ha podido crearse correctamente.', error: error});
     }
@@ -19,18 +20,20 @@ exports.createSheet = async (req,res) => {
 exports.getAllSheets = async (req,res) => { 
     try{
     const sheets = await Sheet.find({});
-    res.status(200).json(sheets)
+    res.status(200).json(sheets);
     } catch (error){
         res.status(500).send({message: 'Ha ocurrido un problema listando las fichas', error: error});
     } 
 };
 
+
 exports.resolveSheet = async (req, res) => {
     try{
         const resolvedSheet = {
+            id: req.body.id,
             answers: req.body.answers
         }
-        res.status(200).json(resolvedSheet)
+        res.status(200).json(resolvedSheet);
     }catch(error){
         res.status(500).send({message: 'Ha ocurrido un problema al enviar la ficha', error: error})
     }
@@ -44,3 +47,28 @@ exports.removeSheet = async (req, res) => {
         res.status(500).send({message: 'No se ha podido eliminar la ficha', error: error})
     }
 };
+exports.sendSheet =  async (req, res) => {
+    try{
+        const teacher = await Teacher.findOne({id: req.body.id})
+        const students = teacher.students
+        const data = req.body;
+        
+        const promises = students.map(student_id =>{
+            return Sheet.create({
+                student: student_id,
+                subject: data.subject,
+                grade: data.grade,
+                area: data.area,
+                title: data.title,
+                questions: data.questions,
+                teacher: data.teacher
+            })
+        })
+        await Promise.all(promises);
+        res.status(200).json({message: 'fichas enviadas correctamente', collection: idCollection})
+        }catch(error){
+            console.log(error)
+            res.status(500).send({message: 'no se han podido enviar las fichas', error: error})
+        }
+    }
+    
