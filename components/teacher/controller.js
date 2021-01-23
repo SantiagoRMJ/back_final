@@ -17,7 +17,15 @@ exports.register = async (req, res) => {
        
         res.status(200).json({message: 'Usuario creado correctamente', newTeacher: newTeacher});
     } catch (error) {
-        res.status(500).send({message: 'El usuario no ha podido crearse correctamente'});
+        res.status(500).json({message: 'El usuario no ha podido crearse correctamente'});
     }
 };
 
+exports.searchTeacherByGrade = async (req, res) =>{
+    try{
+        const teacherInGrade = await Teacher.find({ grade: req.body.grade})
+        res.status(200).json({teacherInGrade: teacherInGrade})
+    }catch(error){
+        res.status(500).json({message: 'no se ha encontrado ningún profesor'});
+    }
+}

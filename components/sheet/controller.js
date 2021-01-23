@@ -13,7 +13,7 @@ exports.createSheet = async (req,res) => {
         })
         res.status(200).json({message: 'Ficha creada correctamente', newSheet: newSheet});
     }catch (error) {
-        res.status(500).send({message: 'La ficha no ha podido crearse correctamente.', error: error});
+        res.status(500).json({message: 'La ficha no ha podido crearse correctamente.', error: error});
     }
 };
 
@@ -22,7 +22,7 @@ exports.getAllSheets = async (req,res) => {
     const sheets = await Sheet.find({});
     res.status(200).json(sheets);
     } catch (error){
-        res.status(500).send({message: 'Ha ocurrido un problema listando las fichas', error: error});
+        res.status(500).json({message: 'Ha ocurrido un problema listando las fichas', error: error});
     } 
 };
 
@@ -35,7 +35,7 @@ exports.resolveSheet = async (req, res) => {
         }
         res.status(200).json(resolvedSheet);
     }catch(error){
-        res.status(500).send({message: 'Ha ocurrido un problema al enviar la ficha', error: error})
+        res.status(500).json({message: 'Ha ocurrido un problema al enviar la ficha', error: error})
     }
 };
 
@@ -44,7 +44,7 @@ exports.removeSheet = async (req, res) => {
         const sheet = await sheet.deleteOne({id: req.body.id})
         res.status(200).json({message: 'La ficha ha sido eliminada'})
     }catch(error){
-        res.status(500).send({message: 'No se ha podido eliminar la ficha', error: error})
+        res.status(500).json({message: 'No se ha podido eliminar la ficha', error: error})
     }
 };
 exports.sendSheet =  async (req, res) => {
@@ -67,7 +67,7 @@ exports.sendSheet =  async (req, res) => {
         res.status(200).json({message: 'fichas enviadas correctamente', collection: idCollection})
         }catch(error){
             console.log(error)
-            res.status(500).send({message: 'no se han podido enviar las fichas', error: error})
+            res.status(500).json({message: 'no se han podido enviar las fichas', error: error})
         }
     }
     exports.findSheet = async (req, res) =>{
