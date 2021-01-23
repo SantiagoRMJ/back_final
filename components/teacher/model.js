@@ -26,7 +26,9 @@ const TeacherSchema = new mongoose.Schema({
     }],
     grade: {type: String},
 
-    subject: [{type: String}]
+    subject: [{type: String}],
+
+   
 
 })
 

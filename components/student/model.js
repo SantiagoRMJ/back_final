@@ -7,14 +7,16 @@ const StudentSchema = new mongoose.Schema({
     },
     pass:{
         type: String,
-        required: true
+        required: true,
+        select: false
     },
     email:{
         type: String,
         required: true,
         unique: true
     },
-    class: { type: String}
+    class: { type: String },
+
     
 })
 

@@ -50,10 +50,9 @@ exports.removeSheet = async (req, res) => {
 exports.sendSheet =  async (req, res) => {
     try{
         const teacher = await Teacher.findOne({id: req.body.id})
-        const students = teacher.students
         const data = req.body;
         
-        const promises = students.map(student_id =>{
+        const promises = teacher.students.map(student_id =>{
             return Sheet.create({
                 student: student_id,
                 subject: data.subject,
@@ -70,5 +69,15 @@ exports.sendSheet =  async (req, res) => {
             console.log(error)
             res.status(500).send({message: 'no se han podido enviar las fichas', error: error})
         }
+    }
+    exports.findSheet = async (req, res) =>{
+        try{
+            const sheet = await Sheet.findOne({id: req.params.id})
+            res.status(200).json({sheet: sheet})
+        }catch(error){
+            console.log(error)
+            res.status(500).json({message: 'no se ha podido encontrar la ficha'})
+        }
+        
     }
     
