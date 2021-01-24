@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const teacherController = require('./controller');
-const auth =require('../auth/auth')
 
-router.post('/teacher', teacherController.register);
-router.post('/login', auth.login);
+
+router.post('/', teacherController.register);
+router.get('/:id', teacherController.showStudentsById);
 
 module.exports = router;

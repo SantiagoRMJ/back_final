@@ -72,7 +72,7 @@ exports.sendSheet =  async (req, res) => {
     }
     exports.findSheet = async (req, res) =>{
         try{
-            const sheet = await Sheet.findOne({id: req.params.id})
+            const sheet = await Sheet.findOne({_id: req.params.id})
             res.status(200).json({sheet: sheet})
         }catch(error){
             console.log(error)
