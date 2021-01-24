@@ -1,5 +1,5 @@
 const Sheet = require('./model');
-const Teacher = require('../teacher/model')
+const Teacher = require('../teacher/model');
 
 exports.createSheet = async (req,res) => {
     try{
@@ -9,12 +9,13 @@ exports.createSheet = async (req,res) => {
             area: req.body.area,
             title: req.body.title,
             questions: req.body.questions,
+            student: req.body.student,
             teacher: req.body.teacher
-        })
+        });
         res.status(200).json({message: 'Ficha creada correctamente', newSheet: newSheet});
     }catch (error) {
         res.status(500).json({message: 'La ficha no ha podido crearse correctamente.', error: error});
-    }
+    };
 };
 
 exports.getAllSheets = async (req,res) => { 
@@ -23,7 +24,7 @@ exports.getAllSheets = async (req,res) => {
     res.status(200).json(sheets);
     } catch (error){
         res.status(500).json({message: 'Ha ocurrido un problema listando las fichas', error: error});
-    } 
+    };
 };
 
 
@@ -35,21 +36,21 @@ exports.resolveSheet = async (req, res) => {
         }
         res.status(200).json(resolvedSheet);
     }catch(error){
-        res.status(500).json({message: 'Ha ocurrido un problema al enviar la ficha', error: error})
-    }
+        res.status(500).json({message: 'Ha ocurrido un problema al enviar la ficha', error: error});
+    };
 };
 
 exports.removeSheet = async (req, res) => {
     try{
-        const sheet = await sheet.deleteOne({id: req.body.id})
-        res.status(200).json({message: 'La ficha ha sido eliminada'})
+        const sheet = await sheet.deleteOne({id: req.body.id});
+        res.status(200).json({message: 'La ficha ha sido eliminada'});
     }catch(error){
-        res.status(500).json({message: 'No se ha podido eliminar la ficha', error: error})
-    }
+        res.status(500).json({message: 'No se ha podido eliminar la ficha', error: error});
+    };
 };
 exports.sendSheet =  async (req, res) => {
     try{
-        const teacher = await Teacher.findOne({id: req.body.id})
+        const teacher = await Teacher.findOne({id: req.body.id});
         const data = req.body;
         
         const promises = teacher.students.map(student_id =>{
@@ -61,23 +62,31 @@ exports.sendSheet =  async (req, res) => {
                 title: data.title,
                 questions: data.questions,
                 teacher: data.teacher
-            })
-        })
+            });
+        });
         await Promise.all(promises);
-        res.status(200).json({message: 'fichas enviadas correctamente', collection: idCollection})
+        res.status(200).json({message: 'fichas enviadas correctamente', collection: idCollection});
         }catch(error){
-            console.log(error)
-            res.status(500).json({message: 'no se han podido enviar las fichas', error: error})
-        }
-    }
-    exports.findSheet = async (req, res) =>{
+            res.status(500).json({message: 'no se han podido enviar las fichas', error: error});
+        };
+    };
+    exports.findSheet = async (req, res) => {
         try{
-            const sheet = await Sheet.findOne({_id: req.params.id})
-            res.status(200).json({sheet: sheet})
+            const sheet = await Sheet.find({_id: req.params.id});
+            res.status(200).json({sheet: sheet});
+        }catch(error){
+            res.status(500).json({message: 'no se ha podido encontrar ninguna ficha'});
+        };   
+    };
+    exports.findStudentSheets = async (req, res) => {
+        try{
+            const sheets = await Sheet.find({student: req.params.student})
+            console.log(sheets)
+            res.status(200).json({sheet: sheets})
         }catch(error){
             console.log(error)
-            res.status(500).json({message: 'no se ha podido encontrar la ficha'})
+            res.status(200).json({message: 'no se ha encontrado ninguna ficha'})
         }
-        
     }
+    
     
