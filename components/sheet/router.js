@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const sheetController = require('./controller');
 
-router.post('/', sheetController.createSheet);
-router.get('/:student', sheetController.findStudentSheets);
+router.post('/', sheetController.sendSheet);
+router.get('/student/:id', sheetController.findStudentSheets);
+router.get('/:id', sheetController.findSheet);
 router.get('/', sheetController.getAllSheets);
 router.delete('/', sheetController.removeSheet);
 router.patch('/:id', sheetController.resolveSheet);

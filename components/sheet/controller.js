@@ -9,7 +9,6 @@ exports.createSheet = async (req,res) => {
             area: req.body.area,
             title: req.body.title,
             questions: req.body.questions,
-            student: req.body.student,
             teacher: req.body.teacher
         });
         res.status(200).json({message: 'Ficha creada correctamente', newSheet: newSheet});
@@ -30,12 +29,18 @@ exports.getAllSheets = async (req,res) => {
 
 exports.resolveSheet = async (req, res) => {
     try{
+        const sheet = await Sheet.findOne({_id: req.params.id})
+
         const resolvedSheet = {
-            id: req.body.id,
             answers: req.body.answers
         }
+        
+        await sheet.updateOne({status:true , answers: resolvedSheet.answers})
+        await sheet.save()
+        console.log(sheet)
         res.status(200).json(resolvedSheet);
     }catch(error){
+        console.log(error)
         res.status(500).json({message: 'Ha ocurrido un problema al enviar la ficha', error: error});
     };
 };
@@ -50,9 +55,9 @@ exports.removeSheet = async (req, res) => {
 };
 exports.sendSheet =  async (req, res) => {
     try{
-        const teacher = await Teacher.findOne({id: req.body.id});
+        const teacher = await Teacher.findOne({ _id: req.body.teacher });
         const data = req.body;
-        
+
         const promises = teacher.students.map(student_id =>{
             return Sheet.create({
                 student: student_id,
@@ -65,14 +70,16 @@ exports.sendSheet =  async (req, res) => {
             });
         });
         await Promise.all(promises);
-        res.status(200).json({message: 'fichas enviadas correctamente', collection: idCollection});
+        res.status(200).json({message: 'fichas enviadas correctamente', sheets: promises});
         }catch(error){
+            console.log(error)
             res.status(500).json({message: 'no se han podido enviar las fichas', error: error});
         };
     };
     exports.findSheet = async (req, res) => {
         try{
-            const sheet = await Sheet.find({_id: req.params.id});
+            const sheet = await Sheet.find({student: req.params.id});
+            console.log("ESTA ES TU PUTA FICHA BRODER", sheet)
             res.status(200).json({sheet: sheet});
         }catch(error){
             res.status(500).json({message: 'no se ha podido encontrar ninguna ficha'});
@@ -80,8 +87,8 @@ exports.sendSheet =  async (req, res) => {
     };
     exports.findStudentSheets = async (req, res) => {
         try{
-            const sheets = await Sheet.find({student: req.params.student})
-            console.log(sheets)
+            const sheets = await Sheet.find({student: req.params.id})
+            console.log("ESTUDIANTES",sheets)
             res.status(200).json({sheet: sheets})
         }catch(error){
             console.log(error)

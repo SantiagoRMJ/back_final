@@ -12,7 +12,6 @@ exports.register = async (req, res) => {
             email: req.body.email,
             class: req.body.class
         });
-        console.log(newStudent)
         await teacherController.classUpdate(req.body.class);
         res.status(200).json({message: 'Usuario creado correctamente', newStudent: newStudent});
     } catch (error) {

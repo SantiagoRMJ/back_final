@@ -24,7 +24,6 @@ exports.login = async (req, res)=>{
     try{
     const teacher = await Teacher.findOne({email: req.body.email}).select('+pass').lean();
     const student = await Student.findOne({email: req.body.email}).select('+pass').lean();
-    console.log(teacher, student)
     if(!teacher && !student) res.status(404).json({message: 'ningún usuario coincide con usuario y contraseña'});
     const data = teacher ? {...teacher, role: 'teacher'} : {...student, role: 'student'};    
     const pass =  bcrypt.compareSync(req.body.pass, data.pass);
