@@ -15,12 +15,12 @@ const SheetSchema = new mongoose.Schema({
     ///////// CREATE (Teacher) ////////////
 
     title: {type: String},
-    
+
     questions: [{ type: String }],
 
     /////////// RESOLVE (Student) ///////////
 
-    answers:[{ type: String }],
+    answers: [{ type: String }],
 
     /////////// RELATIONS ////////////
 

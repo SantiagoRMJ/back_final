@@ -1,5 +1,5 @@
-const jwt = requires('jwt-simple');
-const moment = requires('moment');
+const jwt = require('jwt-simple');
+const moment = require('moment');
 
 
 
@@ -12,6 +12,7 @@ exports.authMiddleware = (req, res, next) => {
     }catch{
         return res.status(401).json({message: 'el token no es valido'})
     }
+    const decode = jwt.decode(token, 'kasjgfdlasjvhxzkcdhsuf');
     if(now > decode.exp)return res.status(401).json({message: 'el token ha expirado'})
     next();
 }

@@ -6,9 +6,9 @@ const teacherRouter = require('./components/teacher/router');
 const sheetRouter = require('./components/sheet/router');
 const studentRouter = require('./components/student/router');
 const auth = require('./components/auth/auth');
+const middlewares = require('./components/auth/middlewares');
 
 const MongoURI = process.env.MongoURI || 'mongodb://localhost:27017/neoSchool'
-
 const app = express();
 app.use(express.json());
 app.use(cors());

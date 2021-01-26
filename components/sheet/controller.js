@@ -30,11 +30,9 @@ exports.getAllSheets = async (req,res) => {
 exports.resolveSheet = async (req, res) => {
     try{
         const sheet = await Sheet.findOne({_id: req.params.id})
-
         const resolvedSheet = {
             answers: req.body.answers
         }
-        
         await sheet.updateOne({status:true , answers: resolvedSheet.answers})
         await sheet.save()
         console.log(sheet)
@@ -47,9 +45,11 @@ exports.resolveSheet = async (req, res) => {
 
 exports.removeSheet = async (req, res) => {
     try{
-        const sheet = await sheet.deleteOne({id: req.body.id});
+        const sheet = await Sheet.findOne({_id: req.params.id});
+        await Sheet.deleteOne(sheet);
         res.status(200).json({message: 'La ficha ha sido eliminada'});
     }catch(error){
+        console.log(error)
         res.status(500).json({message: 'No se ha podido eliminar la ficha', error: error});
     };
 };
@@ -79,7 +79,6 @@ exports.sendSheet =  async (req, res) => {
     exports.findSheet = async (req, res) => {
         try{
             const sheet = await Sheet.find({student: req.params.id});
-            console.log("ESTA ES TU PUTA FICHA BRODER", sheet)
             res.status(200).json({sheet: sheet});
         }catch(error){
             res.status(500).json({message: 'no se ha podido encontrar ninguna ficha'});
