@@ -33,7 +33,7 @@ useCreateIndex: true,
 useFindAndModify: false
 })
 .then(()=> console.log('conectado a la base de datos: ' + MongoURI))
-.catch( e => console.error('no estoy conectado'));
+.catch( e => console.error('ERROR ', e));
 
 
 app.listen(PORT, ()=> console.log("servidor levantado en el puerto " + PORT))
