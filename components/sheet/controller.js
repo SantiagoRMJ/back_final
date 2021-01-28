@@ -87,7 +87,6 @@ exports.sendSheet =  async (req, res) => {
     exports.findStudentSheets = async (req, res) => {
         try{
             const sheets = await Sheet.find({student: req.params.id})
-            console.log("ESTUDIANTES",sheets)
             res.status(200).json({sheet: sheets})
         }catch(error){
             console.log(error)

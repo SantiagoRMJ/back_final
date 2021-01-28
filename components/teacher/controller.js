@@ -40,7 +40,6 @@ exports.showStudentsById = async (req, res) =>{
     teacher.map(teacher =>{
         res.json({students: teacher.students})
     })
-    console.log(teacher)
     res.status(200).json({TeacherStudents: teacherStudents })
    }catch(error){
        console.log(error)
@@ -52,7 +51,6 @@ exports.classUpdate = async (c) => {
 
         const teachers = await Teacher.find({class: c});
         const students = await Students.find({class: c});
-        console.log(teachers, students)
         const promises = teachers.map(async teacher =>{
             teacher.students = students.map(student =>{
                 return student._id
